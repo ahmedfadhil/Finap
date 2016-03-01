@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="header">
+    <h3>
+      <%= @post.heading %>
+    </h3>
+    <p>
+      <%= link_to @post.external_url, @post.external_url %>
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-md-7" id="post-images">
+      <% if @post.images.blank? %>
+          <%= image_tag "http://www.cventure.in/images/img_not_available.png", class: "thumbnail" %>
+      <% else %>
+          <% @images.each do |image| %>
+              <%= image_tag image.url, class: "thumbnail" %>
+          <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-5">
+      <div class="basic-info">
+        <h4>Basic Info</h4>
+        <%= @post.body %><br>
+        Price: <%= number_to_currency(@post.price, precision: 0) %><br>
+        <% if @post.neighborhood.present? %>
+            Neighborhood: <%= @post.neighborhood %><br>
+        <% end %>
+        <% if @post.timestamp.present? %>
+            Last Update: <%= "#{time_ago_in_words(Time.at(@post.timestamp.to_i))} ago" %><br>
+        <% end %>
+        <% if @post.listingtype.present? %>
+            Type: <%= @post.listingtype %><br>
+        <% end %>
+        <% if @post.zipcode.present? %>
+            Zipcode: <%= @post.zipcode %><br>
+        <% end %>
+        <% if @post.bin_price.present? %>
+            <%= @post.bin_price %><br>
+        <% end %>
+      </div>
+      <div class="description">
+        <h4>Description</h4>
+        <p>
+          <% if @post.description.present? %>
+              Description: <%= @post.description %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
